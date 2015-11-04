@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Submission:</strong>
+  <%= @path_comment.submission_id %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @path_comment.text %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @path_comment.user_id %>
+</p>
+
+<p>
+  <strong>Present:</strong>
+  <%= @path_comment.present %>
+</p>
+
+<%= link_to 'Edit', edit_path_comment_path(@path_comment) %> |
+<%= link_to 'Back', path_comments_path %>

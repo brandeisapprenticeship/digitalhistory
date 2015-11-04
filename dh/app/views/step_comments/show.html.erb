@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Step:</strong>
+  <%= @step_comment.step_id %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @step_comment.text %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @step_comment.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_step_comment_path(@step_comment) %> |
+<%= link_to 'Back', step_comments_path %>

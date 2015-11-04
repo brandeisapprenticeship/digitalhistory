@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Step Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Text</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @step_comments.each do |step_comment| %>
+      <tr>
+        <td><%= step_comment.step_id %></td>
+        <td><%= step_comment.text %></td>
+        <td><%= step_comment.user_id %></td>
+        <td><%= link_to 'Show', step_comment %></td>
+        <td><%= link_to 'Edit', edit_step_comment_path(step_comment) %></td>
+        <td><%= link_to 'Destroy', step_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Step comment', new_step_comment_path %>

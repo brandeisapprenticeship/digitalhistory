@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Path Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Submission</th>
+      <th>Text</th>
+      <th>User</th>
+      <th>Present</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @path_comments.each do |path_comment| %>
+      <tr>
+        <td><%= path_comment.submission_id %></td>
+        <td><%= path_comment.text %></td>
+        <td><%= path_comment.user_id %></td>
+        <td><%= path_comment.present %></td>
+        <td><%= link_to 'Show', path_comment %></td>
+        <td><%= link_to 'Edit', edit_path_comment_path(path_comment) %></td>
+        <td><%= link_to 'Destroy', path_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Path comment', new_path_comment_path %>
