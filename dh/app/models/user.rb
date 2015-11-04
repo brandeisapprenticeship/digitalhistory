@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :path_comments
   has_many :step_comments
+  
 end
