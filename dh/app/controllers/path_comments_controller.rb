@@ -69,6 +69,6 @@ class PathCommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def path_comment_params
-      params.require(:path_comment).permit(:text, :user_id, :present)
+      params.require(:path_comment).permit(:text, :user_id, :assignment_id, :present)
     end
 end

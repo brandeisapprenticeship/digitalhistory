@@ -5,5 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :path_comments
   has_many :step_comments
-  
+  has_many :extensions
+  has_many :presentations
+  has_many :steps
 end

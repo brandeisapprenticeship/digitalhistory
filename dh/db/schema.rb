@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104134553) do
+ActiveRecord::Schema.define(version: 20151105155423) do
 
   create_table "assignments", force: :cascade do |t|
     t.datetime "due_date"
@@ -21,12 +21,28 @@ ActiveRecord::Schema.define(version: 20151104134553) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "extensions", force: :cascade do |t|
+    t.integer  "assignment_id", limit: 4
+    t.integer  "user_id",       limit: 4
+    t.datetime "new_due_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "path_comments", force: :cascade do |t|
-    t.string   "text",       limit: 255
-    t.integer  "user_id",    limit: 4
+    t.string   "text",          limit: 255
+    t.integer  "user_id",       limit: 4
+    t.integer  "assignment_id", limit: 4
     t.boolean  "present"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "presentations", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.integer  "assignment_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "step_comments", force: :cascade do |t|
@@ -38,6 +54,8 @@ ActiveRecord::Schema.define(version: 20151104134553) do
   end
 
   create_table "steps", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.integer  "assignment_id", limit: 4
     t.string   "title",         limit: 255
     t.string   "url",           limit: 255
     t.string   "justification", limit: 255

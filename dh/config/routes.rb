@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :extensions
+  resources :presentations
   resources :step_comments
   resources :path_comments
   resources :steps
