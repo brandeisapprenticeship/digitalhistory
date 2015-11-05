@@ -7,7 +7,6 @@ class CreateSteps < ActiveRecord::Migration
     	t.integer :parent_id
     	t.boolean :favorite
     	t.boolean :document
-    	t.integer :submission_id
       t.timestamps null: false
     end
   end

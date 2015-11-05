@@ -22,12 +22,11 @@ ActiveRecord::Schema.define(version: 20151104134553) do
   end
 
   create_table "path_comments", force: :cascade do |t|
-    t.integer  "submission_id", limit: 4
-    t.string   "text",          limit: 255
-    t.integer  "user_id",       limit: 4
+    t.string   "text",       limit: 255
+    t.integer  "user_id",    limit: 4
     t.boolean  "present"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "step_comments", force: :cascade do |t|
@@ -45,17 +44,8 @@ ActiveRecord::Schema.define(version: 20151104134553) do
     t.integer  "parent_id",     limit: 4
     t.boolean  "favorite"
     t.boolean  "document"
-    t.integer  "submission_id", limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-  end
-
-  create_table "submissions", force: :cascade do |t|
-    t.integer  "student_id",    limit: 4
-    t.integer  "assignment_id", limit: 4
-    t.boolean  "present"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
   end
 
   create_table "users", force: :cascade do |t|

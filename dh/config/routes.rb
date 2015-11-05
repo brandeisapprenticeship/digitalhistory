@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :step_comments
   resources :path_comments
-  resources :submissions
   resources :steps
   resources :assignments
   devise_for :users
