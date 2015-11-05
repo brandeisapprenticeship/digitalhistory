@@ -1,17 +1,28 @@
-<%= form_for(@assignment) do |f| %>
-  <% if @assignment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+      <%= form_for(@assignment, :html=>{:class=>"form-horizontal"}) do |f| %>
 
-      <ul>
-      <% @assignment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <div class="form-group">
+            <%= f.label :title, class:'control-label col-md-2' %>
+            <div class='col-md-10'>
+              <%= f.text_field :title, class:'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :description, class:'control-label col-md-2' %>
+            <div class='col-md-10'>
+              <%= f.text_area :description, class:'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :due_date, class:'control-label col-md-2' %>
+            <div class='col-md-10'>
+              <%= f.datetime_select :due_date, class:'form-control' %>
+            </div>
+          </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit "Save", class: 'btn btn-primary' %>
+      </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
