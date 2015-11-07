@@ -10,6 +10,11 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
+    if !PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author]).blank?
+      @path_comment = PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author])[0]
+    else
+      @path_comment = PathComment.new
+    end
   end
 
   # GET /assignments/new

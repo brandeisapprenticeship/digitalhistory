@@ -1,4 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
-<%= link_to 'Back', assignments_path %>
+<div class="row">
+	<div class="col-md-4">
+		<h2><%=@assignment.title%></h2>
+		<h2><%=User.find(params[:assignment_author]).name%></h2>
+		<ul>
+			<li>Step
+				<ul>
+					<li>Step</li>
+				</ul>
+			</li>
+			<li><b>Step</b>
+				<ul>
+					<li>Step</li>
+				</ul>
+			</li>
+		</ul>
+	<button class="btn btn-primary">Show Successful Path</button>
+	<button class="btn btn-primary">Add New Step</button>
+	<%if current_user.admin?%>
+		<%=form_for(@path_comment) do |f|%>
+			<%=f.hidden_field :user_id, value: current_user.id%>
+			<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+			<%=f.hidden_field :assignment_id, value: @assignment.id%>
+			<br>
+			<div class="form-group">
+			<%=f.text_area :text, class:'form-control'%>
+		</div>
+			<%=f.hidden_field :present, value: false%>
+			<%=f.submit "Save Comment", class:'btn btn-primary'%>
+		<%end%>
+	<%end%>
+</div>

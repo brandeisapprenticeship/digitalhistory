@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :assignments
   devise_for :users
 
+  match '/assignments/:id/:assignment_author', to: 'assignments#show', via: [:get]
   root 'assignments#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

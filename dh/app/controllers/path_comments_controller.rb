@@ -28,7 +28,7 @@ class PathCommentsController < ApplicationController
 
     respond_to do |format|
       if @path_comment.save
-        format.html { redirect_to @path_comment, notice: 'Path comment was successfully created.' }
+        format.html { redirect_to assignments_path+"/"+@path_comment.assignment_id.to_s+"/"+@path_comment.assignment_author.to_s }
         format.json { render :show, status: :created, location: @path_comment }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PathCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @path_comment.update(path_comment_params)
-        format.html { redirect_to @path_comment, notice: 'Path comment was successfully updated.' }
+        format.html { redirect_to assignments_path+"/"+@path_comment.assignment_id.to_s+"/"+@path_comment.assignment_author.to_s }
         format.json { render :show, status: :ok, location: @path_comment }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class PathCommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def path_comment_params
-      params.require(:path_comment).permit(:text, :user_id, :assignment_id, :present)
+      params.require(:path_comment).permit(:text, :user_id, :assignment_author, :assignment_id, :present)
     end
 end
