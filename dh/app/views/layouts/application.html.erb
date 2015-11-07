@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-       <li><a href='#'>Assignments</a></li>
+       <li><%= link_to "Assignments", assignments_path %></li>
 
        <!-- NOT FOR ABBY. MWA HA HA HA -->
        <li><a href='#'>Favorites</a></li>

@@ -28,7 +28,7 @@ class PathCommentsController < ApplicationController
 
     respond_to do |format|
       if @path_comment.save
-        format.html { redirect_to assignments_path+"/"+@path_comment.assignment_id.to_s+"/"+@path_comment.assignment_author.to_s }
+        format.html { redirect_to assignment_path(@path_comment.assignment.id)+"/"+@path_comment.assignment_author.to_s }
         format.json { render :show, status: :created, location: @path_comment }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PathCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @path_comment.update(path_comment_params)
-        format.html { redirect_to assignments_path+"/"+@path_comment.assignment_id.to_s+"/"+@path_comment.assignment_author.to_s }
+        format.html { redirect_to assignment_path(@path_comment.assignment.id)+"/"+@path_comment.assignment_author.to_s }
         format.json { render :show, status: :ok, location: @path_comment }
       else
         format.html { render :edit }

@@ -29,4 +29,65 @@
 			<%=f.submit "Save Comment", class:'btn btn-primary'%>
 		<%end%>
 	<%end%>
-</div>
+	</div>
+	<div class='col-md-8'>
+		<h1>Title</h1>
+		<form class='form-horizontal'>
+			<div class='col-md-6'>
+				<div class='form-group'>
+					<label class='control-label col-md-2'>URL</label>
+					<div class='col-md-10'>
+						<input class='form-control' type='text' value='http://www.somesite.com'>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class='control-label col-md-2'>Parent</label>
+					<div class='col-md-10'>
+						<select class='form-control'>
+							<option>Some page</option>
+							<option>Another page</option>
+							<option>Third page</option>
+						</select>
+					</div>
+				</div>
+				<div class='form-group'>
+					<div class='col-md-12'>
+						<span class='thumbnail'>
+							<img src='https://placeholdit.imgix.net/~text?txtsize=33&txt=screenshot&w=350&h=300'>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class='col-md-6'>
+				<div class='form-group checkbox'>
+					<label>
+						<input type='checkbox'> This is the document I was looking for
+					</label>
+				</div>
+				<div class='form-group checkbox'>
+					<label>
+						<input type='checkbox'> Add to favorites
+					</label>
+				</div>
+				<div class='form-group'>
+					<div class='form-group'>
+					<label class='col-md-12'>Justification</label>
+					<div class='col-md-12'>
+						<textarea class='form-control' rows='10'></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='col-md-12'>
+				<ul class='pager'>
+					<li><a href='#'>Previous</a></li>
+					<li><a href='#'>Next</a></li>
+				</ul>
+			</div>
+			<div class='col-md-12 text-center'>
+				<% if !current_user.admin? %>
+					<button class='btn btn-primary'>Save</button>
+				<% end %>
+			</div>
+
+
