@@ -15,6 +15,14 @@ class AssignmentsController < ApplicationController
     else
       @path_comment = PathComment.new
     end
+
+    if !Step.where(id: params[:step_id]).blank?
+      @step = Step.find(params[:step_id])
+    else
+      @step = Step.new
+    end 
+
+    @steps = Step.where(assignment_id: @assignment.id, user_id: params[:assignment_author])
   end
 
   # GET /assignments/new

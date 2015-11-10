@@ -3,19 +3,14 @@
 		<h2><%=@assignment.title%></h2>
 		<h2><%=User.find(params[:assignment_author]).name%></h2>
 		<ul>
-			<li>Step
-				<ul>
-					<li>Step</li>
-				</ul>
-			</li>
-			<li><b>Step</b>
-				<ul>
-					<li>Step</li>
-				</ul>
-			</li>
+			<%@steps.each do |step| %>
+				<li><%= link_to(step.title, assignment_path(@assignment.id)+"/"+params[:assignment_author]+"/"+step.id.to_s)%></li>
+			<%end%>
 		</ul>
 	<button class="btn btn-primary">Show Successful Path</button>
-	<button class="btn btn-primary">Add New Step</button>
+	<%if current_user.id.to_s == params[:assignment_author]%>
+	<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
+	<%end%>
 	<%if current_user.admin?%>
 		<%=form_for(@path_comment) do |f|%>
 			<%=f.hidden_field :user_id, value: current_user.id%>
@@ -31,23 +26,26 @@
 	<%end%>
 	</div>
 	<div class='col-md-8'>
-		<h1>Title</h1>
-		<form class='form-horizontal'>
+		<%=form_for(@step) do |f|%>
+			<%=f.hidden_field :user_id, value: params[:assignment_author]%>
+			<%=f.hidden_field :assignment_id, value: @assignment.id%>
+		<div class='form-group'>
+					<label class='control-label col-md-2'>Title</label>
+					<div class='col-md-10'>
+						<%=f.text_field :title%>
+					</div>
+				</div>
 			<div class='col-md-6'>
 				<div class='form-group'>
 					<label class='control-label col-md-2'>URL</label>
 					<div class='col-md-10'>
-						<input class='form-control' type='text' value='http://www.somesite.com'>
+						<%=f.text_field :url%>
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='control-label col-md-2'>Parent</label>
+					<label class='control-label col-md-2'>Page I came from</label>
 					<div class='col-md-10'>
-						<select class='form-control'>
-							<option>Some page</option>
-							<option>Another page</option>
-							<option>Third page</option>
-						</select>
+						<%=f.collection_select(:parent_id, @steps.all, :id, :title)%>
 					</div>
 				</div>
 				<div class='form-group'>
@@ -78,16 +76,15 @@
 					</div>
 				</div>
 			</div>
+			<%if current_user.id.to_s == params[:assignment_author]%>
+			<%=f.submit "Save"%>
+			<%end%>
+			<%end%>
 			<div class='col-md-12'>
 				<ul class='pager'>
 					<li><a href='#'>Previous</a></li>
 					<li><a href='#'>Next</a></li>
 				</ul>
-			</div>
-			<div class='col-md-12 text-center'>
-				<% if !current_user.admin? %>
-					<button class='btn btn-primary'>Save</button>
-				<% end %>
 			</div>
 
 
