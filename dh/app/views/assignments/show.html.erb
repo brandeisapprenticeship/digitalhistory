@@ -43,15 +43,17 @@
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='control-label col-md-2'>Page I came from</label>
-					<div class='col-md-10'>
+					<label class='control-label col-md-6'>Page I came from</label>
+					<div class='col-md-6'>
 						<%=f.collection_select(:parent_id, @steps.all, :id, :title)%>
 					</div>
 				</div>
 				<div class='form-group'>
 					<label class='control-label col-md-12'>Screenshot</label>
 					<div class='col-md-12'>
+						<% if @step.screenshot?%>
 						<%= image_tag(@step.screenshot_url, :class=>'thumbnail', :style=>'width:100%')%>
+						<%end%>
 						<%=f.file_field :screenshot%>
 					</div>
 				</div>
