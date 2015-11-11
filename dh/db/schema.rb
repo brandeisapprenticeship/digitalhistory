@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105155423) do
+ActiveRecord::Schema.define(version: 20151111163549) do
 
   create_table "assignments", force: :cascade do |t|
     t.datetime "due_date"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20151105155423) do
     t.boolean  "document"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "screenshot",    limit: 255
   end
 
   create_table "users", force: :cascade do |t|
