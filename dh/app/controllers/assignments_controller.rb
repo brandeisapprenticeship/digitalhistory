@@ -37,7 +37,9 @@ class AssignmentsController < ApplicationController
   # POST /assignments
   # POST /assignments.json
   def create
+   
     @assignment = Assignment.new(assignment_params)
+   
 
     respond_to do |format|
       if @assignment.save

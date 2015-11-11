@@ -93,11 +93,18 @@
 
           <div class="form-group">
             <%= f.label :due_date, class:'control-label col-md-2' %>
+            <div class='col-md-10'>
+              <%= f.datetime_select :due_date, class:'form-control' %>
+            </div>
+          </div>
+
+          <!--<div class="form-group">
+            <%= f.label :due_date, class:'control-label col-md-2' %>
              
               
               <div class='col-md-10'>
                 <div class='input-group date' id='due_date'>
-                <%= f.datetime_field :due_date, class:'form-control' %>
+                <%= f.datetime_field :due_date, class:'form-control', :as => :datetime_picker %>
                 <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -106,11 +113,11 @@
           </div>
 
  
-        <script type="text/javascript">
+       <script type="text/javascript">
             $(function () {
                 $('#due_date').datetimepicker();
             });
-        </script>
+        </script> -->
     
 </div>
 
