@@ -59,19 +59,19 @@
 			<div class='col-md-6'>
 				<div class='form-group checkbox'>
 					<label>
-						<input type='checkbox'> This is the document I was looking for
+						<%= f.check_box :document %> This is the document I was looking for
 					</label>
 				</div>
 				<div class='form-group checkbox'>
 					<label>
-						<input type='checkbox'> Add to favorites
+						<%= f.check_box :favorite %> Add to favorites
 					</label>
 				</div>
 				<div class='form-group'>
 					<div class='form-group'>
 					<label class='col-md-12'>Justification</label>
 					<div class='col-md-12'>
-						<textarea class='form-control' rows='10'></textarea>
+						<%= f.text_area :justification, :rows=>10, :class=>'form-control' %>
 						</div>
 					</div>
 				</div>
