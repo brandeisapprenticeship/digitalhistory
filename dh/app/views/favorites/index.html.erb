@@ -1,0 +1,5 @@
+<%if !@favorites.blank?%>
+	<% @favorites.each do |favorite| %>
+		<li><a href = '<%=favorite.url%>'><%=favorite.title%></a></li>
+	<%end%>
+<%end%>
