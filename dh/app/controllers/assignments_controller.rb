@@ -16,6 +16,12 @@ class AssignmentsController < ApplicationController
       @path_comment = PathComment.new
     end
 
+    if !Presentation.where(assignment_id: @assignment.id, assignment_author: params[:assignment_author]).blank?
+      @presentation = Presentation.where(assignment_id: @assignment.id, assignment_author: params[:assignment_author])[0]
+    else
+      @presentation = Presentation.new
+    end
+
     if !Step.where(id: params[:step_id]).blank?
       @step = Step.find(params[:step_id])
     else

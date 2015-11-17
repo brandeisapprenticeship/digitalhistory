@@ -23,6 +23,15 @@
 			<%=f.hidden_field :present, value: false%>
 			<%=f.submit "Save Comment", class:'btn btn-primary'%>
 		<%end%>
+		<%if @presentation.new_record?%>
+		<%=form_for(@presentation) do |f|%>
+			<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+			<%=f.hidden_field :assignment_id, value: @assignment.id%>
+			<%=f.submit "Present", class:'btn btn-primary'%>
+		<%end%>
+		<%else%>
+		<%= link_to 'Destroy', @presentation, method: :delete%>
+		<%end%>
 	<%end%>
 	</div>
 	<div class='col-md-8'>

@@ -10,6 +10,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/1
   # GET /presentations/1.json
   def show
+    render :template => "assignments/show"
   end
 
   # GET /presentations/new
@@ -28,7 +29,7 @@ class PresentationsController < ApplicationController
 
     respond_to do |format|
       if @presentation.save
-        format.html { redirect_to @presentation, notice: 'Presentation was successfully created.' }
+        format.html { redirect_to assignment_path(@presentation.assignment.id)+"/"+@presentation.assignment_author.to_s }
         format.json { render :show, status: :created, location: @presentation }
       else
         format.html { render :new }
@@ -54,9 +55,11 @@ class PresentationsController < ApplicationController
   # DELETE /presentations/1
   # DELETE /presentations/1.json
   def destroy
+    assignment_id = @presentation.assignment.id
+    assignment_author = @presentation.assignment_author.to_s
     @presentation.destroy
     respond_to do |format|
-      format.html { redirect_to presentations_url, notice: 'Presentation was successfully destroyed.' }
+      format.html { redirect_to assignment_path(assignment_id)+"/"+assignment_author }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,6 @@ class PresentationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def presentation_params
-      params.require(:presentation).permit(:user_id, :assignment_id)
+      params.require(:presentation).permit(:assignment_author, :assignment_id)
     end
 end

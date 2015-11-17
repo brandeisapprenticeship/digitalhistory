@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 20151111163549) do
   end
 
   create_table "presentations", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.integer  "assignment_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "assignment_author", limit: 4
+    t.integer  "assignment_id",     limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "step_comments", force: :cascade do |t|
