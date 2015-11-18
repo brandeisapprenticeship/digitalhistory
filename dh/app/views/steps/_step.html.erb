@@ -1,4 +1,4 @@
-<li>
+<li <%= if step.document? then "class=successful" else "class=unsuccessful"end%>>
 	<%= link_to(step.title, assignment_path(@assignment.id)+"/"+params[:assignment_author]+"/"+step.id.to_s)%>
 	<% unless step.children.empty? %>
 	<ul>
