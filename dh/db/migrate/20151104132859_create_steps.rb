@@ -6,7 +6,9 @@ class CreateSteps < ActiveRecord::Migration
     	t.string :title
     	t.string :url
     	t.string :justification
-    	t.integer :parent_id
+    	t.integer :parent_id, :null=>true, :index=>true
+      t.integer :lft, :null=>false, :index=>true
+      t.integer :rgt, :null=>false, :index=>true
     	t.boolean :favorite
     	t.boolean :document
       t.timestamps null: false

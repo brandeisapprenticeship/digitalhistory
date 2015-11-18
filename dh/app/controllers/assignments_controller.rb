@@ -1,5 +1,7 @@
 class AssignmentsController < ApplicationController
   before_action :set_assignment, only: [:show, :edit, :update, :destroy]
+  include TheSortableTreeController::Rebuild
+
 
   # GET /assignments
   # GET /assignments.json
@@ -28,7 +30,7 @@ class AssignmentsController < ApplicationController
       @step = Step.new
     end 
 
-    @steps = Step.where(assignment_id: @assignment.id, user_id: params[:assignment_author])
+    @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: params[:assignment_author])
   end
 
   # GET /assignments/new

@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   resources :presentations
   resources :step_comments
   resources :path_comments
-  resources :steps
+  resources :steps do
+    collection do
+      get :manage
+      post :rebuild
+    end
+  end
   resources :assignments
   devise_for :users
 

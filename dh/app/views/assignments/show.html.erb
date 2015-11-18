@@ -2,10 +2,9 @@
 	<div class="col-md-4">
 		<h2><%=@assignment.title%></h2>
 		<h2><%=User.find(params[:assignment_author]).name%></h2>
+		<%#=just_tree @steps%>
 		<ul>
-			<%@steps.each do |step| %>
-				<li><%= link_to(step.title, assignment_path(@assignment.id)+"/"+params[:assignment_author]+"/"+step.id.to_s)%></li>
-			<%end%>
+			<%=render :partial => :step, :collection => @steps.roots%>
 		</ul>
 	<button class="btn btn-primary">Show Successful Path</button>
 	<%if current_user.id.to_s == params[:assignment_author]%>
@@ -54,7 +53,7 @@
 				<div class='form-group'>
 					<label class='control-label col-md-6'>Page I came from</label>
 					<div class='col-md-6'>
-						<%=f.collection_select(:parent_id, @steps.all, :id, :title)%>
+						<%= f.select :parent_id, nested_set_options(Step, @step) {|i| "#{'-' * i.level} #{i.title}" } %>
 					</div>
 				</div>
 				<div class='form-group'>

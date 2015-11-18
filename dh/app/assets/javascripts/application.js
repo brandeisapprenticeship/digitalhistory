@@ -12,9 +12,13 @@
 //
 //= require jquery
 //= require bootstrap-sprockets
+//= require jquery-ui
 //= require jquery_ujs
+//= require jquery.ui.nestedSortable
+//= require sortable_tree/initializer
 //= require turbolinks
 //= require bootstrap-wysihtml5
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .
+

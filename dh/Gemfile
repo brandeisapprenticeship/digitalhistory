@@ -15,6 +15,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'awesome_nested_set'
+gem 'jquery-ui-rails'
+gem "the_sortable_tree", "~> 2.5.0"
 gem 'carrierwave'
 
 # Use jquery as the JavaScript library

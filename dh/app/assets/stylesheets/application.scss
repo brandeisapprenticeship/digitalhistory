@@ -1,5 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "tree";
+@import "sortable_tree";
+@import "nested_options";
 
 @import "bootstrap-wysihtml5/bootstrap3-wysihtml5";
 @import 'bootstrap-datetimepicker';
