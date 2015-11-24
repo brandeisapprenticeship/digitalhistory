@@ -29,6 +29,10 @@
        <li><%= link_to "Favorites", favorites_path %></li>
 
        <li><a href='#'>Presentation</a></li>
+
+       <%if !current_user.admin?%>
+          <li><%= link_to "My Submissions", summary_path %></li>
+          <%end%>
        <% end %>
       </ul>
       

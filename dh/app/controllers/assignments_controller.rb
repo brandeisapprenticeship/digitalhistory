@@ -33,6 +33,16 @@ class AssignmentsController < ApplicationController
     @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: params[:assignment_author])
   end
 
+  def summary
+    if current_user.admin?
+      @assignment = Assignment.find(params[:id])
+      @students = User.where(admin: false)
+    else
+      @assignments = Assignment.all
+      @student = current_user
+    end
+    end
+
   # GET /assignments/new
   def new
     @assignment = Assignment.new

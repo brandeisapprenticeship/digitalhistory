@@ -1,0 +1,19 @@
+<h1>
+	<%if current_user.admin?%>
+		<%=@assignment.title%>
+	<%else%>
+		<%=@student.name%>
+	<%end%>
+</h1>
+<%if current_user.admin?%>
+	<%@students.each do |student|%>
+		<div class = 'col-md-4'>
+			<h2><%=student.name%></h2>
+			<ul>
+				<%getSteps(student.id, @assignment.id).each do |step|%>
+				<li><%=step.title%></li>
+				<%end%>
+			</ul>
+		</div>
+	<%end%>
+<%end%>

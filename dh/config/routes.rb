@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   match '/assignments/:id/:assignment_author(/:step_id)', to: 'assignments#show', via: [:get]
+  match '/summary(/:id)', to: 'assignments#summary', as: 'summary', via: [:get]
   root 'assignments#index'
   match '/presentations/:id/:assignment_author(/:step_id)', to: 'presentations#show', via: [:get]
 

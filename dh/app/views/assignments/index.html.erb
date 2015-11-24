@@ -36,7 +36,7 @@
         </td>
         <td>
           <% if current_user.admin? %>
-            (show summary)
+            <%= link_to 'View All Submissions', summary_path(assignment) %>
           <% else %>
             <%= link_to 'Go to assignment', assignment_path(assignment)+"/"+current_user.id.to_s %>
           <% end %>
