@@ -1,10 +1,9 @@
 <div class="row">
 	<div class="col-md-4">
 		<h2><%=@assignment.title%></h2>
-		<h2><%=User.find(params[:assignment_author]).name%></h2>
 		<%#=just_tree @steps%>
 		<ul>
-			<%=render :partial => :step, :collection => @steps.roots%>
+			<%=render :partial => "/steps/present", :collection => @steps.roots, as: :step%>
 		</ul>
 		<%if current_user.id.to_s == params[:assignment_author]%>
 		<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
@@ -21,15 +20,7 @@
 		<%=f.hidden_field :present, value: false%>
 		<%=f.submit "Save Comment", class:'btn btn-primary'%>
 		<%end%>
-		<%if @presentation.new_record?%>
-		<%=form_for(@presentation) do |f|%>
-		<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
-		<%=f.hidden_field :assignment_id, value: @assignment.id%>
-		<%=f.submit "Mark to Present", class:'btn btn-primary'%>
-		<%end%>
-		<%else%>
 		<%= link_to 'Unmark to Present', @presentation, method: :delete, class:'btn btn-primary'%>
-		<%end%>
 		<%end%>
 	</div>
 	<div class='col-md-8'>

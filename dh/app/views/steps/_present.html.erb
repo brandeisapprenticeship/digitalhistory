@@ -1,0 +1,8 @@
+<li <%= if step.document? then "class=successful" else "class=unsuccessful"end%>>
+	<%= link_to(step.title, present_path(@assignment.id, params[:assignment_author])+"/"+step.id.to_s)%>
+	<% unless step.children.empty? %>
+	<ul>
+		<%=render :partial => "/steps/present", :collection => step.children, as: :step%>
+	</ul>
+	<% end %>
+</li>

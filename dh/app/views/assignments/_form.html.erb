@@ -22,7 +22,7 @@
           </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%=link_to('Cancel', assignments_path, class: 'btn btn-default')%>
         <%= f.submit "Save", class: 'btn btn-primary' %>
       </div>
       <% end %>

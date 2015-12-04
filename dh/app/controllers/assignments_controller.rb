@@ -1,5 +1,5 @@
 class AssignmentsController < ApplicationController
-  before_action :set_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_assignment, only: [:present, :show, :edit, :update, :destroy]
   include TheSortableTreeController::Rebuild
 
 
@@ -12,6 +12,28 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
+    if !PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author]).blank?
+      @path_comment = PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author])[0]
+    else
+      @path_comment = PathComment.new
+    end
+
+    if !Presentation.where(assignment_id: @assignment.id, assignment_author: params[:assignment_author]).blank?
+      @presentation = Presentation.where(assignment_id: @assignment.id, assignment_author: params[:assignment_author])[0]
+    else
+      @presentation = Presentation.new
+    end
+
+    if !Step.where(id: params[:step_id]).blank?
+      @step = Step.find(params[:step_id])
+    else
+      @step = Step.new
+    end 
+
+    @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: params[:assignment_author])
+  end
+
+  def present
     if !PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author]).blank?
       @path_comment = PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author])[0]
     else
@@ -75,7 +97,7 @@ class AssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @assignment.update(assignment_params)
-        format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
+        format.html { redirect_to assignments_path, notice: 'Assignment was successfully updated.' }
         format.json { render :show, status: :ok, location: @assignment }
       else
         format.html { render :edit }
