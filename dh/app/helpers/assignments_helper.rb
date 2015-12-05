@@ -12,4 +12,8 @@ module AssignmentsHelper
     		@steps.reverse!
     	return @steps
   end
+  def getPresentations(assignment_id)
+    @presentations = Presentation.where(assignment_id: assignment_id)
+    return @presentations
+  end
 end

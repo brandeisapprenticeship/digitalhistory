@@ -1,25 +1,17 @@
-<p id="notice"><%= notice %></p>
+<h1>Presentations</h1>
 
-<h1>Listing Presentations</h1>
+    <%=@assignment.title%>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @presentations.each do |presentation| %>
-      <tr>
-        <td><%= link_to 'Show', presentation %></td>
-        <td><%= link_to 'Edit', edit_presentation_path(presentation) %></td>
-        <td><%= link_to 'Destroy', presentation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Presentation', new_presentation_path %>
+<%if current_user.admin?%>
+  <%@students.each do |student|%>
+    <div class = 'col-md-4'>
+      <h2><%=student.name%></h2>
+      <ul>
+        <%getSteps(student.id, @assignment.id).each do |step|%>
+        <li><%=step.title%></li>
+        <%end%>
+      </ul>
+    </div>
+  <%end%>
+<%end%>

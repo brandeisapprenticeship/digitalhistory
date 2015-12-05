@@ -1,0 +1,16 @@
+<h1>Presentations</h1>
+
+    <%@assignments.each do |assignment| %>
+      <h2><%=assignment.title%></h2>
+      <% getPresentations(assignment.id).each do |presentation| %>
+      <div class = 'col-md-4'>
+        <ul>
+          <%getSteps(presentation.assignment_author, assignment.id).each do |step|%>
+          <li><%=step.title%></li>
+          <%end%>
+        </ul>
+
+        <%= link_to "View presentation", present_path(assignment.id,presentation.assignment_author), class:'btn btn-primary' %>
+      </div>
+    <%end%>
+<%end%>

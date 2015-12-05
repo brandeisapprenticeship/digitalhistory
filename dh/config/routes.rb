@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 match '/assignments/present/:id/:assignment_author(/:step_id)', to: 'assignments#present', via: [:get], as: "present"
+ get '/presentations', to:'assignments#presentation_summary', as:'presentation_summary'
   resources :extensions
   resources :presentations
   resources :step_comments
@@ -17,6 +18,7 @@ match '/assignments/present/:id/:assignment_author(/:step_id)', to: 'assignments
   match '/summary(/:id)', to: 'assignments#summary', as: 'summary', via: [:get]
   root 'assignments#index'
   get '/favorites', to: 'favorites#index', as: 'favorites'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

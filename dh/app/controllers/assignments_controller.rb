@@ -65,6 +65,11 @@ class AssignmentsController < ApplicationController
     end
     end
 
+
+  def presentation_summary
+    @assignments=Assignment.all
+  end
+
   # GET /assignments/new
   def new
     @assignment = Assignment.new
