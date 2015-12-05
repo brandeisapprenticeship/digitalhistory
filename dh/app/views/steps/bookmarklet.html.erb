@@ -1,0 +1,47 @@
+<%=form_for(@step) do |f|%>
+		<%=f.hidden_field :user_id, value: current_user.id%>
+		<%=f.hidden_field :assignment_id, value: 1%>
+		<div class='form-group'>
+			<label class='control-label col-md-2'>Title</label>
+			<div class='col-md-10'>
+				<%=f.text_field :title%>
+			</div>
+		</div>
+		<div class='col-md-6'>
+			<div class='form-group'>
+				<label class='control-label col-md-2'>URL</label>
+				<div class='col-md-10'>
+					<%=f.text_field :url%>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='control-label col-md-6'>Page I came from</label>
+				<div class='col-md-6'>
+					<%= f.select :parent_id, nested_set_options(@steps, @step) {|i| "#{'-' * i.level} #{i.title}" }.unshift(["",nil]) %>
+				</div>
+			</div>
+		</div>
+		<div class='col-md-6'>
+			<div class='form-group checkbox'>
+				<label>
+					<%= f.check_box :document %> This is the document I was looking for
+				</label>
+			</div>
+			<div class='form-group checkbox'>
+				<label>
+					<%= f.check_box :favorite %> Add to favorites
+				</label>
+			</div>
+			<div class='form-group'>
+				<div class='form-group'>
+					<label class='col-md-12'>Justification</label>
+					<div class='col-md-12'>
+						<%= f.text_area :justification, :rows=>10, :class=>'form-control' %>
+					</div>
+				</div>
+			</div>
+
+			<%=f.submit "Save"%>
+
+		</div>
+		<%end%>

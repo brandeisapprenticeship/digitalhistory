@@ -51,6 +51,13 @@ class StepsController < ApplicationController
     end
   end
 
+  def bookmarklet
+
+    @step = Step.new
+    @steps = Step.nested_set.where(assignment_id: 1, user_id: current_user.id)
+    render :layout=>false
+  end
+
   # DELETE /steps/1
   # DELETE /steps/1.json
   def destroy
