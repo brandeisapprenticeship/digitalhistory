@@ -12,14 +12,14 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-    if !PathComment.where(assignment_id: @assignment.id, present:false, user_id: current_user.id, assignment_author: params[:assignment_author]).blank?
-      @path_comment = PathComment.where(assignment_id: @assignment.id, present:false, user_id: current_user.id, assignment_author: params[:assignment_author])[0]
+    if !PathComment.where(assignment_id: @assignment.id, present:false, assignment_author: params[:assignment_author]).blank?
+      @path_comment = PathComment.where(assignment_id: @assignment.id, present:false, assignment_author: params[:assignment_author])[0]
     else
       @path_comment = PathComment.new
     end
 
-    if !PathComment.where(assignment_id: @assignment.id, present:true, user_id: current_user.id, assignment_author: params[:assignment_author]).blank?
-      @presentation_comment = PathComment.where(assignment_id: @assignment.id, present:true, user_id: current_user.id, assignment_author: params[:assignment_author])[0]
+    if !PathComment.where(assignment_id: @assignment.id, present:true, assignment_author: params[:assignment_author]).blank?
+      @presentation_comment = PathComment.where(assignment_id: @assignment.id, present:true, assignment_author: params[:assignment_author])[0]
     else
       @presentation_comment = PathComment.new
     end
@@ -40,8 +40,8 @@ class AssignmentsController < ApplicationController
   end
 
   def present
-    if !PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author]).blank?
-      @path_comment = PathComment.where(assignment_id: @assignment.id, user_id: current_user.id, assignment_author: params[:assignment_author])[0]
+    if !PathComment.where(assignment_id: @assignment.id,  assignment_author: params[:assignment_author]).blank?
+      @path_comment = PathComment.where(assignment_id: @assignment.id, assignment_author: params[:assignment_author])[0]
     else
       @path_comment = PathComment.new
     end

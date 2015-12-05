@@ -53,7 +53,15 @@
 			<%else%>
 				<%= link_to 'Unmark to Present', @presentation, method: :delete, class:'btn btn-primary'%>
 			<%end%>
+
+		<%else%>
+			<%if !@path_comment.new_record?%>
+				<h3>Professor's comments:</h3>
+				<p><%= @path_comment.text%></p>
+			<%end%>
+
 		<%end%>
+
 	</div>
 	<div class='col-md-8'>
 		<%=form_for(@step) do |f|%>
