@@ -14,6 +14,19 @@
 				<li><%=step.title%></li>
 				<%end%>
 			</ul>
+			<%= link_to "Go to assignment", submission_page_path(@assignment.id,student.id), class:'btn btn-primary' %>
+		</div>
+	<%end%>
+<%else %>
+	<%@assignments.each do |assignment|%>
+		<div class = 'col-md-4'>
+			<h2><%=assignment.title%></h2>
+			<ul>
+				<%getSteps(current_user.id, assignment.id).each do |step|%>
+				<li><%=step.title%></li>
+				<%end%>
+			</ul>
+			<%= link_to "Go to assignment", submission_page_path(assignment.id,current_user.id), class:'btn btn-primary' %>
 		</div>
 	<%end%>
 <%end%>

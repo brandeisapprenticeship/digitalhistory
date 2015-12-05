@@ -14,7 +14,7 @@ match '/assignments/present/:id/:assignment_author(/:step_id)', to: 'assignments
   resources :assignments
   devise_for :users
   
-  match '/assignments/:id/:assignment_author(/:step_id)', to: 'assignments#show', via: [:get]
+  get '/assignments/:id/:assignment_author(/:step_id)', to: 'assignments#show', as: 'submission_page'
   match '/summary(/:id)', to: 'assignments#summary', as: 'summary', via: [:get]
   root 'assignments#index'
   get '/favorites', to: 'favorites#index', as: 'favorites'
