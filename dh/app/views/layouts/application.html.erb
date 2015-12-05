@@ -25,8 +25,9 @@
         <% if user_signed_in? %>
        <li><%= link_to "Assignments", assignments_path %></li>
 
-       <!-- NOT FOR ABBY. MWA HA HA HA -->
-       <li><%= link_to "Favorites", favorites_path %></li>
+       <% if !current_user.admin? %>
+        <li><%= link_to "Favorites", favorites_path %></li>
+        <%end%>
 
        <li><%= link_to "Presentations", presentation_summary_path %></li>
 

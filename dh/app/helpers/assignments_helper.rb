@@ -16,4 +16,8 @@ module AssignmentsHelper
     @presentations = Presentation.where(assignment_id: assignment_id)
     return @presentations
   end
+
+  def getPresentationComment(assignment_id,assignment_author)
+    return PathComment.where(assignment_id: assignment_id, assignment_author: assignment_author, present:true)
+  end
 end

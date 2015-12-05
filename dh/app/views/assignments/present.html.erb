@@ -5,22 +5,12 @@
 		<ul>
 			<%=render :partial => "/steps/present", :collection => @steps.roots, as: :step%>
 		</ul>
-		<%if current_user.id.to_s == params[:assignment_author]%>
-		<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
-		<%end%>
+		<%if !@presentation_comment.new_record?%>
+				<h3>Professor's comments:</h3>
+				<p><%= @presentation_comment.text%></p>
+			<%end%>
 		<%if current_user.admin?%>
-		<%=form_for(@path_comment) do |f|%>
-		<%=f.hidden_field :user_id, value: current_user.id%>
-		<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
-		<%=f.hidden_field :assignment_id, value: @assignment.id%>
-		<br>
-		<div class="form-group">
-			<%=f.text_area :text, class:'form-control'%>
-		</div>
-		<%=f.hidden_field :present, value: false%>
-		<%=f.submit "Save Comment", class:'btn btn-primary'%>
-		<%end%>
-		<%= link_to 'Unmark to Present', @presentation, method: :delete, class:'btn btn-primary'%>
+		
 		<%end%>
 	</div>
 	<div class='col-md-8'>

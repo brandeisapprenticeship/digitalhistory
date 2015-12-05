@@ -9,7 +9,10 @@
           <li><%=step.title%></li>
           <%end%>
         </ul>
-
+        <%if !getPresentationComment(assignment.id,presentation.assignment_author).blank?%>
+          <h3>Comment:</h3>
+          <p><%=getPresentationComment(assignment.id,presentation.assignment_author)[0].text%></p>
+        <%end%>
         <%= link_to "View presentation", present_path(assignment.id,presentation.assignment_author), class:'btn btn-primary' %>
       </div>
     <%end%>
