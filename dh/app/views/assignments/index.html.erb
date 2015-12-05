@@ -2,11 +2,11 @@
   <h1>Assignments</h1>
 </div>
 
-<p id="notice"><%= notice %></p>
-
+<%if current_user.admin?%>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newAssignmentForm">
   Create new assignment
 </button>
+<%end%>
 
 <table class='table'>
   <thead>
