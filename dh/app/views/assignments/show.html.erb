@@ -9,27 +9,50 @@
 		<%if current_user.id.to_s == params[:assignment_author]%>
 		<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
 		<%end%>
+
+		
 		<%if current_user.admin?%>
-		<%=form_for(@path_comment) do |f|%>
-		<%=f.hidden_field :user_id, value: current_user.id%>
-		<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
-		<%=f.hidden_field :assignment_id, value: @assignment.id%>
-		<br>
-		<div class="form-group">
-			<%=f.text_area :text, class:'form-control'%>
-		</div>
-		<%=f.hidden_field :present, value: false%>
-		<%=f.submit "Save Comment", class:'btn btn-primary'%>
-		<%end%>
-		<%if @presentation.new_record?%>
-		<%=form_for(@presentation) do |f|%>
-		<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
-		<%=f.hidden_field :assignment_id, value: @assignment.id%>
-		<%=f.submit "Mark to Present", class:'btn btn-primary'%>
-		<%end%>
-		<%else%>
-		<%= link_to 'Unmark to Present', @presentation, method: :delete, class:'btn btn-primary'%>
-		<%end%>
+			<h3>Path comment</h3>
+			<%=form_for(@path_comment) do |f|%>
+				<%=f.hidden_field :user_id, value: current_user.id%>
+				<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+				<%=f.hidden_field :assignment_id, value: @assignment.id%>
+				<br>
+				<div class="form-group">
+					<%=f.text_area :text, class:'form-control'%>
+				</div>
+				<%=f.hidden_field :present, value: false%>
+				<%=f.submit "Save Comment", class:'btn btn-primary'%>
+			<%end%>
+
+
+			<%if !@presentation.new_record?%>
+				<h3>Presentation comment</h3>
+				<%=form_for(@presentation_comment) do |f|%>
+					<%=f.hidden_field :user_id, value: current_user.id%>
+					<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+					<%=f.hidden_field :assignment_id, value: @assignment.id%>
+					<br>
+					<div class="form-group">
+						<%=f.text_area :text, class:'form-control'%>
+					</div>
+					<%=f.hidden_field :present, value: true%>
+					<%=f.submit "Save Comment", class:'btn btn-primary'%>
+				<%end%>
+			<%end%>
+
+
+
+
+			<%if @presentation.new_record?%>
+				<%=form_for(@presentation) do |f|%>
+				<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+				<%=f.hidden_field :assignment_id, value: @assignment.id%>
+				<%=f.submit "Mark to Present", class:'btn btn-primary'%>
+				<%end%>
+			<%else%>
+				<%= link_to 'Unmark to Present', @presentation, method: :delete, class:'btn btn-primary'%>
+			<%end%>
 		<%end%>
 	</div>
 	<div class='col-md-8'>
