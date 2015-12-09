@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20151111163549) do
 
   create_table "assignments", force: :cascade do |t|
     t.datetime "due_date"
-    t.string   "description", limit: 255
+    t.text     "description", limit: 65535
     t.string   "title",       limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "extensions", force: :cascade do |t|
@@ -58,15 +58,15 @@ ActiveRecord::Schema.define(version: 20151111163549) do
     t.integer  "user_id",       limit: 4
     t.integer  "assignment_id", limit: 4
     t.string   "title",         limit: 255
-    t.string   "url",           limit: 255
+    t.text     "url",           limit: 65535
     t.string   "justification", limit: 255
     t.integer  "parent_id",     limit: 4
-    t.integer  "lft",           limit: 4,   null: false
-    t.integer  "rgt",           limit: 4,   null: false
+    t.integer  "lft",           limit: 4,     null: false
+    t.integer  "rgt",           limit: 4,     null: false
     t.boolean  "favorite"
     t.boolean  "document"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "screenshot",    limit: 255
   end
 
