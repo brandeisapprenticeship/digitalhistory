@@ -9,74 +9,83 @@
 				<p><%= @presentation_comment.text%></p>
 			<%end%>
 	</div>
-	<div class='col-md-8'>
+	<%if current_user.id.to_s != params[:assignment_author] && @step.new_record?%>
+
+	<div class='col-md-8 text-center'>
+		<h3>Click a Step on Left to Review</h3>
+	</div>
+	<%else%>
+	<div class='col-md-8' id='form'>
+		<div id="error">
+        <% if flash[:errors] && !flash[:errors].empty? then -%>
+        	<%flash[:errors].each do |error|%>
+        		<%=error%>
+        		<%end%>
+        <% end -%>
+		</div>
 		<%=form_for(@step) do |f|%>
 		<%=f.hidden_field :user_id, value: params[:assignment_author]%>
 		<%=f.hidden_field :assignment_id, value: @assignment.id%>
-		<%if @step.new_record?%>
-		<h3>Create New Step</h3>
-		<%end%>
+		
 		<div class='form-group'>
-			<label class='control-label col-md-2'>Title</label>
-			<div class='col-md-10'>
-				<input type='text' value='<%=@step.title%>' class='form-control view' readonly>
-			</div>
+			<label class='control-label' for='step_title'>Title</label>
+			<input type='text' value='<%=@step.title%>' class='form-control view' readonly>
+			
 		</div>
-		<div class='col-md-6'>
-			<div class='form-group'>
-				<label class='control-label col-md-2'>URL</label>
-				<div class='col-md-10'>
-					<input type='text' value='<%=@step.url%>' class='form-control view' readonly>
+		<div class='row'>
+			<div class='col-md-6'>
+
+				<div class='form-group checkbox view'>
+					<label>
+						<input type='checkbox' disabled <%="checked" if @step.document%>><b>This is the document I was looking for</b>
+					</label>
 				</div>
 			</div>
-			<div class='form-group'>
-				<label class='control-label col-md-6'>Page I came from</label>
-				<div class='col-md-6'>
-				<select class='form-control view' disabled>
-					<%if Step.exists?(:id => @step.parent_id)%>
-						<option><%=Step.find(@step.parent_id).title%></option>
-					<%else%>
-						<option></option>
-					<%end%>
-				</select>
-				</div>
-			</div>
-			<div class='form-group'>
-				<label class='control-label col-md-12'>Screenshot</label>
-				<div class='col-md-12'>
-					<% if @step.screenshot?%>
-					<%= image_tag(@step.screenshot_url, :class=>'thumbnail', :style=>'width:100%')%>
-					<%end%>
+			<div class='col-md-6'>
+
+				<div class='form-group checkbox view'>
+					<label>
+						<input type='checkbox' disabled <%="checked" if @step.favorite%>><b>Add to favorites</b>
+					</label>
 				</div>
 			</div>
 		</div>
-		<div class='col-md-6'>
-			<div class='form-group checkbox view'>
-				<label>
-					<input type='checkbox' disabled <%="checked" if @step.document%>>This is the document I was looking for
-				</label>
-			</div>
-			<div class='form-group checkbox view'>
-				<label>
-					<input type='checkbox' disabled <%="checked" if @step.favorite%>>Add to favorites
-				</label>
-			</div>
-			<div class='form-group'>
+		<div class='form-group'>
+			<label for='step_url'>URL</label>
+			<input type='text' value='<%=@step.url%>' class='form-control view' readonly>
+		</div>
+		<div class='form-group'>
+			<label class='control-label' for='step_parent_id'>Page I came from</label>
+			<select class='form-control view' disabled>
+				<%if Step.exists?(:id => @step.parent_id)%>
+					<option><%=Step.find(@step.parent_id).title%></option>
+				<%else%>
+					<option></option>
+				<%end%>
+			</select>
+		</div>
+		<div class='row'>
+			<div class='col-md-6'>
 				<div class='form-group'>
-					<label class='col-md-12'>Justification</label>
-					<div class='col-md-12'>
-						<textarea class='form-control view' rows=10 readonly><%=@step.justification%></textarea>
-					</div>
+					<label class='control-label' for='step_screenshot'>Screenshot</label>
+						<% if @step.screenshot?%>
+						<%= image_tag(@step.screenshot_url, :class=>'thumbnail', :style=>'width:100%')%>
+						<%end%>
+
 				</div>
 			</div>
-			<%if current_user.id.to_s == params[:assignment_author]%>
-			<%=f.submit "Save", :class=>'edit btn btn-primary'%>
-			<a class='edit' href='#' id='cancel'>Cancel</a>
-			<button class='view btn btn-primary' id='edit'>Edit Step</button>
-			<%end%>
+			<div class='col-md-6'>
+				<div class='form-group'>
+					<label class='control-label' for='step_justification'>Justification</label>
+					<textarea class='form-control view' rows=10 readonly><%=@step.justification%></textarea>
+				</div>
+			</div>
 		</div>
+
 		<%end%>
+	<%end%>
 	</div>
+	
 </div>
 		<script type="text/javascript">
 		$(function(){

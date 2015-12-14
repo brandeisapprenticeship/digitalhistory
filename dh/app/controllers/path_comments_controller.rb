@@ -1,5 +1,6 @@
 class PathCommentsController < ApplicationController
   before_action :set_path_comment, only: [:show, :edit, :update, :destroy]
+  add_flash_types :success
 
   # GET /path_comments
   # GET /path_comments.json
@@ -28,7 +29,7 @@ class PathCommentsController < ApplicationController
 
     respond_to do |format|
       if @path_comment.save
-        format.html { redirect_to assignment_path(@path_comment.assignment.id)+"/"+@path_comment.assignment_author.to_s }
+        format.html { redirect_to assignment_path(@path_comment.assignment.id)+"/"+@path_comment.assignment_author.to_s, success: 'Comment saved' }
         format.json { render :show, status: :created, location: @path_comment }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class PathCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @path_comment.update(path_comment_params)
-        format.html { redirect_to assignment_path(@path_comment.assignment.id)+"/"+@path_comment.assignment_author.to_s }
+        format.html { redirect_to assignment_path(@path_comment.assignment.id)+"/"+@path_comment.assignment_author.to_s, success: 'Comment saved' }
         format.json { render :show, status: :ok, location: @path_comment }
       else
         format.html { render :edit }

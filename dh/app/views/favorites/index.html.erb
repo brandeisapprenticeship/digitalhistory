@@ -1,3 +1,6 @@
+<div class='page-header'>
+	<h1>Favorites</h1>
+</div>
 <%if !@favorites.blank?%>
 	<% @favorites.each do |favorite| %>
 		<li><a href = '<%=favorite.url%>'><%=favorite.title%></a></li>
