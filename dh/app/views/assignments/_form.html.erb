@@ -10,7 +10,7 @@
           <div class="form-group">
             <%= f.label :description, class:'control-label col-md-2' %>
             <div class='col-md-10'>
-              <%= f.text_area :description, class:'form-control' %>
+              <%= f.text_area :description, class:'form-control wysihtml5' %>
             </div>
           </div>
 
@@ -26,3 +26,11 @@
         <%= f.submit "Save", class: 'btn btn-primary' %>
       </div>
       <% end %>
+
+       <script type="text/javascript">
+  $(document).ready(function(){
+    $('.wysihtml5').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+  })
+</script>

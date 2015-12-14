@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class='<%if controller.controller_name == "assignments" && (controller.action_name == "index" || controller.action_name == "show" || controller.action_name=="summary")%> assignments <%elsif controller.controller_name == "favorites"%> favorites <%else%>presentations <%end%>'>
+<body class='<%if controller.controller_name == "assignments" && (controller.action_name == "index" || controller.action_name == "edit" || controller.action_name == "show" || controller.action_name=="summary")%> assignments <%elsif controller.controller_name == "favorites"%> favorites <%else%>presentations <%end%>'>
 <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -20,7 +20,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">      <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-       <li id='assignments' class='<%='current' if controller.controller_name == "assignments" && (controller.action_name == "index" || controller.action_name == "show" || controller.action_name=="summary")%>'><%= link_to "Assignments", assignments_path %></li>
+       <li id='assignments' class='<%='current' if controller.controller_name == "assignments" && (controller.action_name == "index" || controller.action_name == "edit" || controller.action_name == "show" || controller.action_name=="summary")%>'><%= link_to "Assignments", assignments_path %></li>
 
        <% if !current_user.admin? %>
         <li id='favorites' class='<%='current' if controller.controller_name == "favorites"%>'><%= link_to "Favorites", favorites_path %></li>
