@@ -9,7 +9,7 @@
 				<p><%= @presentation_comment.text%></p>
 			<%end%>
 	</div>
-	<%if current_user.id.to_s != params[:assignment_author] && @step.new_record?%>
+	<%if @step.new_record?%>
 
 	<div class='col-md-8 text-center'>
 		<h3>Click a Step on Left to Review</h3>
