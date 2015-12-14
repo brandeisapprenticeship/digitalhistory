@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20151111163549) do
   create_table "steps", force: :cascade do |t|
     t.integer  "user_id",       limit: 4
     t.integer  "assignment_id", limit: 4
-    t.string   "title",         limit: 255
+    t.string   "title",         limit: 255,   null: false
     t.text     "url",           limit: 65535
     t.string   "justification", limit: 255
     t.integer  "parent_id",     limit: 4

@@ -3,7 +3,7 @@ class CreateSteps < ActiveRecord::Migration
     create_table :steps do |t|
       t.integer :user_id
       t.integer :assignment_id
-    	t.string :title
+    	t.string :title, :null=>false
     	t.text :url
     	t.string :justification
     	t.integer :parent_id, :null=>true, :index=>true

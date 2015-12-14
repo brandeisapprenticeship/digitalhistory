@@ -31,7 +31,8 @@ class StepsController < ApplicationController
         format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s+"/"+@step.id.to_s}
         format.json { render :show, status: :created, location: @step }
       else
-        format.html { render :new }
+        flash[:errors] = @step.errors
+        format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s }
         format.json { render json: @step.errors, status: :unprocessable_entity }
       end
     end

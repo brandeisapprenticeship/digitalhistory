@@ -5,7 +5,7 @@
 		<ul>
 			<%=render :partial => :step, :collection => @steps.roots%>
 		</ul>
-		<%if current_user.id.to_s == params[:assignment_author]%>
+		<%if current_user.id.to_s == params[:assignment_author] && !@step.new_record?%>
 		<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
 		<%end%>
 
@@ -60,9 +60,20 @@
 			<%end%>
 
 		<%end%>
-
 	</div>
+	<%if current_user.id.to_s != params[:assignment_author] && @step.new_record?%>
 	<div class='col-md-8'>
+		<p>Click a Step on Left to Review</p>
+	</div>
+	<%else%>
+	<div class='col-md-8' id='form'>
+		<div id="error">
+        <% if flash[:errors] && !flash[:errors].empty? then -%>
+        	<%flash[:errors].each do |error|%>
+        		<%=error%>
+        		<%end%>
+        <% end -%>
+		</div>
 		<%=form_for(@step) do |f|%>
 		<%=f.hidden_field :user_id, value: params[:assignment_author]%>
 		<%=f.hidden_field :assignment_id, value: @assignment.id%>
@@ -145,6 +156,7 @@
 		</div>
 		<%end%>
 	</div>
+	<%end%>
 </div>
 		<script type="text/javascript">
 		function editStep(){

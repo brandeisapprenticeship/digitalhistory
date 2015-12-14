@@ -6,8 +6,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<nav class="navbar navbar-default navbar-static-top">
+<body class='<%if controller.controller_name == "assignments" && (controller.action_name == "index" || controller.action_name == "show")%> assignments <%elsif controller.controller_name == "favorites"%> favorites <%else%>presentations <%end%>'>
+<nav class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -20,18 +20,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">      <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-       <li><%= link_to "Assignments", assignments_path %></li>
+       <li id='assignments' class='<%='current' if controller.controller_name == "assignments" && (controller.action_name == "index" || controller.action_name == "show")%>'><%= link_to "Assignments", assignments_path %></li>
 
        <% if !current_user.admin? %>
-        <li><%= link_to "Favorites", favorites_path %></li>
+        <li id='favorites' class='<%='current' if controller.controller_name == "favorites"%>'><%= link_to "Favorites", favorites_path %></li>
         <%end%>
+       <li id='presentations' class='<%='current' if controller.controller_name == "assignments" && (controller.action_name == "present" || controller.action_name == "presentation_summary")%>'><%= link_to "Presentations", presentation_summary_path %></li>
 
-       <li><%= link_to "Presentations", presentation_summary_path %></li>
-
-       <%if !current_user.admin?%>
-          <li><%= link_to "My Submissions", summary_path %></li>
-          <%end%>
-       <% end %>
+        <%end%>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
