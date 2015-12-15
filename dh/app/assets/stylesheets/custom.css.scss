@@ -14,7 +14,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 .footer {
   position: absolute;
@@ -130,6 +130,18 @@ li.current#favorites{
 }
 
 li.current#presentations{
+  background-color: $presentations-color;
+}
+
+.assignments .bootstrap-datetimepicker-widget table td.active  {
+  background-color: $assignments-color;
+}
+
+.favorites .bootstrap-datetimepicker-widget table td.active  {
+  background-color: $favorites-color;
+}
+
+.presentations .bootstrap-datetimepicker-widget table td.active {
   background-color: $presentations-color;
 }
 
