@@ -3,6 +3,6 @@
 </div>
 <%if !@favorites.blank?%>
 	<% @favorites.each do |favorite| %>
-		<li><a href = '<%=favorite.url%>'><%=favorite.title%></a></li>
+		<li><b><a href = '<%=favorite.url%>'><%=favorite.title%></a></b></li>
 	<%end%>
 <%end%>
