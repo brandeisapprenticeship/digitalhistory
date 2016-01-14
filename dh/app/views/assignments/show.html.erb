@@ -3,7 +3,7 @@
 		<%if @step.new_record? && current_user.id.to_s==params[:assignment_author]%>
 		<small>(Create New Step)</small>
 		<%end%>
-		<%if current_user.id.to_s == params[:assignment_author]%>
+		<%if current_user.id.to_s == params[:assignment_author] && Date.today < @assignment.due_date%>
 			<small><a href='#' class='view' id='edit'>(Edit Step)</a></small>
 		<%end%>
 		</h1>
@@ -14,7 +14,7 @@
 		<ul>
 			<%=render :partial => :step, :collection => @steps.roots%>
 		</ul>
-		<%if current_user.id.to_s == params[:assignment_author] && !@step.new_record?%>
+		<%if current_user.id.to_s == params[:assignment_author] && !@step.new_record? && Date.today < @assignment.due_date %>
 		<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
 		<%end%>
 
@@ -107,7 +107,7 @@
 		<%end%>
 	</div>
 
-	<%if current_user.id.to_s != params[:assignment_author] && @step.new_record?%>
+	<%if (current_user.id.to_s != params[:assignment_author] && @step.new_record?) || Date.today > @assignment.due_date%>
 
 	<div class='col-md-8 text-center'>
 		<h3>Click a Step on Left to Review</h3>
