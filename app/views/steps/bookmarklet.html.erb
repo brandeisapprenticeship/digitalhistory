@@ -46,6 +46,9 @@
 					<label class='control-label' for='step_parent_id'>Page I came from</label>
 					<%= f.select :parent_id, nested_set_options(@steps, @step) {|i| "#{'-' * i.level} #{i.title}" }.unshift(["",nil]), {}, {:class=>'form-control'} %>
 				</div>
+				<div class='form-group'>
+					<label class='control-label' for='step_screenshot'>Screenshot</label>
+					<%=f.file_field :screenshot, :class=>'form-control'%>
 				<div class='form-group checkbox'>
 					<label>
 						<%= f.check_box :document %> This is the document I was looking for
