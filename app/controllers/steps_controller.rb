@@ -28,8 +28,11 @@ class StepsController < ApplicationController
     @step.screenshot = step_params[:screenshot]
     respond_to do |format|
       if @step.save
-        format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s+"/"+@step.id.to_s}
-        format.json { render :show, status: :created, location: @step }
+        if step_params.has_key?(:bookmarklet)
+          format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s+"/"+@step.id.to_s}
+        else
+          format.html { redirect_to bookmarkletSuccess_url}
+        end
       else
         flash[:errors] = @step.errors
         format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s }
@@ -73,6 +76,10 @@ class StepsController < ApplicationController
       @assignment=Assignment.last
     end
     @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: current_user.id)
+    render :layout=>false
+  end
+
+  def bookmarkletSuccess
     render :layout=>false
   end
 

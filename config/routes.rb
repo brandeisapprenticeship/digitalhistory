@@ -20,6 +20,7 @@ match '/assignments/present/:id/:assignment_author(/:step_id)', to: 'assignments
   get '/favorites', to: 'favorites#index', as: 'favorites'
   get '/bookmarklet', to: 'steps#bookmarklet', as:'bookmarklet'
   get '/pageICameFrom', to: 'steps#pageICameFrom', as:'pageICameFrom'
+  get '/bookmarkletSuccess', to: 'steps#bookmarkletSuccess', as:'bookmarkletSuccess'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
