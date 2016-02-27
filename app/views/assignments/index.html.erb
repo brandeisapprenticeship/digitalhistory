@@ -55,7 +55,7 @@
 <h2>Quick add steps</h2>
 <p>To add steps directly during your research without having to navigate to this website, follow these steps:</p>
 <ol>
-  <li>Click and drag this button to your bookmarks bar: <a href="javascript:(function(){var url= encodeURIComponent(location.href);var title= encodeURIComponent(document.title);open('http://localhost:3000/bookmarklet?url='+url+'&title='+title,'DHBookmarklet','height=500,width=500');})()" class='btn btn-primary'>Add step</a></li>
+  <li>Click and drag this button to your bookmarks bar: <a href="javascript:(function(){var url= encodeURIComponent(location.href);var title= encodeURIComponent(document.title);open('<%= bookmarklet_url %>?url='+url+'&title='+title,'DHBookmarklet','height=500,width=500');})()" class='btn btn-primary'>Add step</a></li>
   <li>Click the newly added link any time you are on a site you wish to add as a step</li>
   <li>Select the assignment you working on, fill out, and submit the form. Your step will be saved to this website.</li>
 </ol>
