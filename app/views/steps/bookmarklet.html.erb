@@ -1,22 +1,29 @@
 <%=form_for(@step) do |f|%>
 		<%=f.hidden_field :user_id, value: current_user.id%>
-		<%=f.hidden_field :assignment_id, value: 1%>
+
 		<div class='form-group'>
 			<label class='control-label col-md-2'>Title</label>
 			<div class='col-md-10'>
-				<%=f.text_field :title%>
+				<%=f.text_field :title, :value=>params[:title]%>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label class='control-label col-md-2'>Assignment</label>
+			<div class='col-md-10'>
+				<%=f.collection_select :assignment_id, @assignments, :id, :title, {:selected => @assignment.id} %>
 			</div>
 		</div>
 		<div class='col-md-6'>
 			<div class='form-group'>
 				<label class='control-label col-md-2'>URL</label>
 				<div class='col-md-10'>
-					<%=f.text_field :url%>
+					<%=f.text_field :url, :value=>params[:url]%>
 				</div>
 			</div>
 			<div class='form-group'>
 				<label class='control-label col-md-6'>Page I came from</label>
-				<div class='col-md-6'>
+				<div class='col-md-6' id='parent_container'>
 					<%= f.select :parent_id, nested_set_options(@steps, @step) {|i| "#{'-' * i.level} #{i.title}" }.unshift(["",nil]) %>
 				</div>
 			</div>
@@ -44,4 +51,19 @@
 			<%=f.submit "Save"%>
 
 		</div>
+		<script src='https://code.jquery.com/jquery-2.2.1.min.js' type='text/javascript'></script>
+		<script type='text/javascript'>
+		$(function(){
+			$('#step_assignment_id').change(function(){
+				$.get("<%= pageICameFrom_url %>?assignment="+$(this).val())
+				.done(function(data){
+					$('#parent_container').html(data);
+				})
+				.fail(function(){
+					alert("Something went wrong. Please close this window and try again.");
+				});
+				
+			});
+		});
+		</script>
 		<%end%>

@@ -9,3 +9,5 @@ User.create(name: "Zak", email: "zkolar@brandeis.edu", password:"12345678", admi
 User.create(name: "Hannah", email: "hmoser@brandeis.edu", password:"12345678", admin:true)
 User.create(name: "Maria", email: "maltebar@brandeis.edu", password:"awkward1", admin:true)
 User.create(name: "Abby", email: "abcooper@brandeis.edu", password:"12345678", admin:true)
+User.create(name:"Antonella",email:"antonella@brandeis.edu",password:"12345678",admin:false)
+User.create(name:"Bob",email:"bob@brandeis.edu",password:"12345678",admin:false)

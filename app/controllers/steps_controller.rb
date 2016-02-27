@@ -25,7 +25,7 @@ class StepsController < ApplicationController
   # POST /steps.json
   def create
     @step = Step.new(step_params)
-    @step.screenshot = step_params[:screenshot] 
+    @step.screenshot = step_params[:screenshot]
     respond_to do |format|
       if @step.save
         format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s+"/"+@step.id.to_s}
@@ -53,9 +53,26 @@ class StepsController < ApplicationController
   end
 
   def bookmarklet
-
     @step = Step.new
-    @steps = Step.nested_set.where(assignment_id: 1, user_id: current_user.id)
+    
+    @assignments = Assignment.all
+    if params.has_key?(:assignment)
+      @assignment=Assignment.find(params[:assignment])
+    else
+      @assignment=Assignment.last
+    end
+    @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: current_user.id)
+    render :layout=>false
+  end
+
+  def pageICameFrom
+    
+    if params.has_key?(:assignment)
+      @assignment=Assignment.find(params[:assignment])
+    else
+      @assignment=Assignment.last
+    end
+    @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: current_user.id)
     render :layout=>false
   end
 

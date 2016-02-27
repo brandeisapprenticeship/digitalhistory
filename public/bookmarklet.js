@@ -18,7 +18,7 @@
 	} else {
 		initMyBookmarklet();
 	}
-	
+
 	function initMyBookmarklet() {
 		(window.myBookmarklet = function() {
 			var container=document.createElement('div');
@@ -29,4 +29,3 @@
 	}
 
 })();
-
