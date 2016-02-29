@@ -64,7 +64,9 @@ class StepsController < ApplicationController
     else
       @assignment=Assignment.last
     end
-    @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: current_user.id)
+    if !@assignment.blank?
+      @steps = Step.nested_set.where(assignment_id: @assignment.id, user_id: current_user.id)
+    end
     render :layout=>false
   end
 
