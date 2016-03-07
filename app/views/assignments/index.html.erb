@@ -32,7 +32,8 @@
           <%= assignment.description.html_safe %>
         </td>
         <td>
-          <%= assignment.due_date.strftime("%A, %B %d at %I:%M %p") %>
+          <% #assignment.due_date.strftime("%A, %B %d at %I:%M %p") 
+          %>
         </td>
         <td>
           <% if current_user.admin? %>
