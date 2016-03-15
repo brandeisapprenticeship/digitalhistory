@@ -28,7 +28,7 @@ class StepsController < ApplicationController
     @step.screenshot = step_params[:screenshot]
     respond_to do |format|
       if @step.save
-        if step_params.has_key?(:bookmarklet)
+        if !params.has_key?(:bookmarklet)
           format.html { redirect_to assignment_path(@step.assignment.id)+"/"+@step.user_id.to_s+"/"+@step.id.to_s}
         else
           format.html { redirect_to bookmarkletSuccess_url}

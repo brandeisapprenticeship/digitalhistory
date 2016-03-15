@@ -31,7 +31,7 @@
 			<% elsif !@assignment.blank? %>
 				<%=form_for(@step) do |f|%>
 					<%=f.hidden_field :user_id, value: current_user.id%>
-					<%=f.hidden_field :bookmarklet, value: true%>
+					<%= hidden_field_tag :bookmarklet, value: true%>
 					<div class='form-group'>
 						<label class='control-label' for='step_assignment_id'>Assignment</label>
 						<%=f.collection_select :assignment_id, @assignments, :id, :title, {:selected => @assignment.id}, {:class=>'form-control'} %>
