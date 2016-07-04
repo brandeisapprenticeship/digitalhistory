@@ -13,7 +13,6 @@
     <tr>
       <th>Assignment title</th>
       <th>Description</th>
-      <th>Due date</th>
       <% if current_user.admin? %>
         <th>View assignment submisions</th>
         <th>Edit</th>
@@ -30,10 +29,6 @@
         </td>
         <td>
           <%= assignment.description.html_safe %>
-        </td>
-        <td>
-          <% #assignment.due_date.strftime("%A, %B %d at %I:%M %p") 
-          %>
         </td>
         <td>
           <% if current_user.admin? %>
@@ -95,15 +90,16 @@
     $('.wysihtml5').each(function(i, elem) {
       $(elem).wysihtml5();
     });
-    $('#assignment_due_date').datetimepicker();
+    <% # $('#assignment_due_date').datetimepicker(); %>
   })
 </script>
-          <div class="form-group">
-            <%= f.label :due_date, class:'control-label col-md-2' %>
-            <div class='col-md-10'>
-              <%= f.datetime_select :due_date%>
-            </div>
-          </div>
+      <% #    <div class="form-group">
+       #     <%= f.label :due_date, class:'control-label col-md-2' %>
+       #     <div class='col-md-10'>
+      #        <%= f.datetime_select :due_date%>
+      #      </div>
+      #    </div>
+      %>
     
 </div>
 
