@@ -1,6 +1,9 @@
+<div class='page-header'>
+	<h1><%=@assignment.title%> - <%= User.find(@presentation.assignment_author).name %></h1>
+</div>
 <div class="row">
 	<div class="col-md-4">
-		<h2><%=@assignment.title%></h2>
+		
 		<ul>
 			<%=render :partial => "/steps/present", :collection => @steps.roots, as: :step%>
 		</ul>

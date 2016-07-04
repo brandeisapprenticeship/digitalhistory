@@ -145,3 +145,9 @@ li.current#presentations{
   background-color: $presentations-color;
 }
 
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
