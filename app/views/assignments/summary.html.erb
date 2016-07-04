@@ -14,6 +14,11 @@
 		<%@students.each do |student|%>
 			<div class = 'col-md-4'>
 				<h2><%=student.name%></h2>
+				<% if Step.where(user_id: student.id, assignment_id: @assignment.id).empty? %>
+					<i>No submission</i>
+				<% elsif getSteps(student.id, @assignment.id).empty? %>
+					<i>No successful path</i>
+				<% end %>
 				<ul>
 					<%getSteps(student.id, @assignment.id).each do |step|%>
 					<li><%=step.title%></li>

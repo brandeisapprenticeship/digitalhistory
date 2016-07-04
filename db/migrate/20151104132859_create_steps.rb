@@ -5,7 +5,7 @@ class CreateSteps < ActiveRecord::Migration
       t.integer :assignment_id
     	t.string :title, :null=>false
     	t.text :url
-    	t.string :justification
+    	t.text :justification
     	t.integer :parent_id, :null=>true, :index=>true
       t.integer :lft, :null=>false, :index=>true
       t.integer :rgt, :null=>false, :index=>true
