@@ -72,7 +72,7 @@
 				<div class='form-group'>
 					<label class='control-label' for='step_screenshot'>Screenshot</label>
 						<% if @step.screenshot?%>
-						<%= image_tag(@step.screenshot_url, :class=>'thumbnail', :style=>'width:100%')%>
+							<a href='<%= @step.screenshot_url %>' data-toggle='lightbox'><%= image_tag(@step.screenshot_url, :class=>'thumbnail', :style=>'width:100%')%></a>
 						<%end%>
 
 				</div>
@@ -102,7 +102,11 @@
 					$(this).html("Show Successful Path");
 					$(".unsuccessful").show();
 				}
-			})
+			});
+			$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+			    event.preventDefault();
+			    $(this).ekkoLightbox();
+			}); 
 		});
 		</script>
 
