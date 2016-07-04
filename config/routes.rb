@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 match '/assignments/present/:id/:assignment_author(/:step_id)', to: 'assignments#present', via: [:get], as: "present"
  get '/presentations', to:'assignments#presentation_summary', as:'presentation_summary'
-  resources :extensions
   resources :presentations
   resources :step_comments
   resources :path_comments
