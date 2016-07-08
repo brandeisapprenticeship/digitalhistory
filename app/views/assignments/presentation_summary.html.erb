@@ -1,0 +1,38 @@
+<div class='page-header'>
+  <h1>Presentations</h1>
+</div>
+
+    <%@assignments.each do |assignment| %>
+      <div class='row'>
+        <div class='col-md-12'>
+          <h2><%=assignment.title%></h2>
+        </div>
+      </div>
+      <div class='row'>
+        <% col_per_row = 3
+          current_col=1 %>
+        <% getPresentations(assignment.id).each do |presentation| %>
+        <div class = 'col-md-4'>
+        <h3><%= User.find(presentation.assignment_author).name %></h3>
+          <ul>
+            <%getSteps(presentation.assignment_author, assignment.id).each do |step|%>
+            <li><%=step.title%></li>
+            <%end%>
+          </ul>
+          <%if !getPresentationComment(assignment.id,presentation.assignment_author).blank?%>
+            <p class='h3'>Comment:</p>
+            <p><%=getPresentationComment(assignment.id,presentation.assignment_author)[0].text%></p>
+          <%end%>
+          <%= link_to "View presentation", present_path(assignment.id,presentation.assignment_author), class:'btn btn-primary' %>
+        </div>
+        <% if current_col<col_per_row %>
+      
+      <% current_col=current_col+1 %>
+      <% else %>
+      <div class='clearfix'></div>
+      <% current_col=1 %>
+      <% end %>
+      <%end%>
+  </div>
+  <hr>
+<%end%>

@@ -1,0 +1,51 @@
+<div class='page-header'>
+	<h1>
+		<%if current_user.admin?%>
+			<%=@assignment.title%>
+		<%else%>
+			<%=@student.name%>
+		<%end%>
+	</h1>
+</div>
+<% col_per_row = 3
+   current_col=1 %>
+<%if current_user.admin?%>
+	<div class='row'>
+		<%@students.each do |student|%>
+			<div class = 'col-md-4'>
+				<h2><%=student.name%></h2>
+				<% if Step.where(user_id: student.id, assignment_id: @assignment.id).empty? %>
+					<i>No submission</i>
+				<% elsif getSteps(student.id, @assignment.id).empty? %>
+					<i>No successful path</i>
+				<% end %>
+				<ul>
+					<%getSteps(student.id, @assignment.id).each do |step|%>
+					<li><%=step.title%></li>
+					<%end%>
+				</ul>
+				<%= link_to "Go to assignment", submission_page_path(@assignment.id,student.id), class:'btn btn-primary' %>
+			</div>
+			<% if current_col<col_per_row %>
+			
+			<% current_col=current_col+1 %>
+			<% else %>
+			<div class='clearfix'></div>
+			<% current_col=1 %>
+			<% end %>
+
+		<%end%>
+	</div>
+<%else %>
+	<%@assignments.each do |assignment|%>
+		<div class = 'col-md-4'>
+			<h2><%=assignment.title%></h2>
+			<ul>
+				<%getSteps(current_user.id, assignment.id).each do |step|%>
+				<li><%=step.title%></li>
+				<%end%>
+			</ul>
+			<%= link_to "Go to assignment", submission_page_path(assignment.id,current_user.id), class:'btn btn-primary' %>
+		</div>
+	<%end%>
+<%end%>

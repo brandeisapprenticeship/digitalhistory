@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Add page to path</title>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<script src='https://code.jquery.com/jquery-2.2.1.min.js' type='text/javascript'></script>
+			<script type='text/javascript'>
+			$(function(){
+				$('#step_assignment_id').change(function(){
+					$.get("<%= pageICameFrom_url %>?assignment="+$(this).val())
+					.done(function(data){
+						$('#step_parent_id').html(data);
+					})
+					.fail(function(){
+						alert("Something went wrong. Please close this window and try again.");
+					});
+					
+				});
+			});
+			</script>
+			
+	</head>
+	<body class='presentations'>
+		<div class='container'>
+			<div class='page-header'>
+				<h1>Add step</h1>
+				<p>(Signed in as <%= current_user.email %>)</p>
+			</div>
+			<% if current_user.admin? %>
+				<p>Please sign in as a non-admin user to add steps.</p>
+			<% elsif !@assignment.blank? %>
+				<%=form_for(@step) do |f|%>
+					<%=f.hidden_field :user_id, value: current_user.id%>
+					<%= hidden_field_tag :bookmarklet, value: true%>
+					<div class='form-group'>
+						<label class='control-label' for='step_assignment_id'>Assignment</label>
+						<%=f.collection_select :assignment_id, @assignments, :id, :title, {:selected => @assignment.id}, {:class=>'form-control'} %>
+					</div>
+					<div class='form-group'>
+						<label class='control-label' for='step_title'>Title</label>
+						<%=f.text_field :title, :value=>params[:title], :class=>'form-control'%>
+					</div>
+					<div class='form-group'>
+						<label class='control-label' for='step_url'>URL</label>
+						<%=f.text_field :url, :value=>params[:url], :class=>'form-control'%>
+					</div>
+					<div class='form-group'>
+						<label class='control-label' for='step_parent_id'>Page I came from</label>
+						<%= f.select :parent_id, nested_set_options(@steps, @step) {|i| "#{'-' * i.level} #{i.title}" }.unshift(["",nil]), {}, {:class=>'form-control'} %>
+					</div>
+					<div class='form-group'>
+						<label class='control-label' for='step_screenshot'>Screenshot</label>
+						<%=f.file_field :screenshot, :class=>'form-control'%>
+					<div class='form-group checkbox'>
+						<label>
+							<%= f.check_box :document %> This is the document I was looking for
+						</label>
+					</div>
+					<div class='form-group checkbox'>
+						<label>
+							<%= f.check_box :favorite %> Add to favorites
+						</label>
+					</div>
+					<div class='form-group'>
+						<label class='control-label' for='step_justification'>Justification</label>
+						<%= f.text_area :justification, :rows=>10, :class=>'form-control' %>
+					</div>
+					<%=f.submit "Save", :class=>'btn btn-primary'%>
+					<a href='javascript:window.close()'>Cancel</a>
+				<%end%>
+			<%else%>
+				No assignments have been posted yet.
+			<%end%>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+<%= options_for_select(nested_set_options(@steps, @step) {|i| "#{'-' * i.level} #{i.title}" }.unshift(["",nil]))  %>

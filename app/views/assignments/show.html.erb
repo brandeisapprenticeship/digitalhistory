@@ -1,0 +1,260 @@
+<div class='page-header'>
+		<h1><%=@assignment.title%> - <%=User.find(params[:assignment_author]).name%>
+		<%if @step.new_record? && current_user.id.to_s==params[:assignment_author]%>
+		<small>(Create New Step)</small>
+		<%end%>
+		<%
+		#if current_user.id.to_s == params[:assignment_author] && Date.today < @assignment.due_date
+		if current_user.id.to_s == params[:assignment_author]
+			%>
+			<small><a href='#' class='view' id='edit'>(Edit Step)</a></small>
+		<%end%>
+		</h1>
+	</div>
+<div class="row">
+	<div class="col-md-4">
+		<h3 style="padding-top: 0; margin-top: 0">Search Path</h3>
+		<ul>
+			<%=render :partial => :step, :collection => @steps.roots%>
+		</ul>
+		<%if
+			# current_user.id.to_s == params[:assignment_author] && !@step.new_record? && Date.today < @assignment.due_date 
+			current_user.id.to_s == params[:assignment_author] && !@step.new_record? 
+			%>
+		<%= link_to("Add New Step", assignment_path(@assignment.id)+"/"+params[:assignment_author], class: 'btn btn-primary')%>
+		<%end%>
+
+		
+		<%if current_user.admin?%>
+
+		<%if flash[:success] %>
+		<p class='text-success'>
+			<%= flash[:success] %>
+		</p>
+		<%end%>
+
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		  <div class="panel panel-default">
+		    <div class="panel-heading" role="tab" id="headingOne">
+		      <h4 class="panel-title">
+		        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		          Path comment
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		      <div class="panel-body">
+				       <%=form_for(@path_comment) do |f|%>
+						<%=f.hidden_field :user_id, value: current_user.id%>
+						<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+						<%=f.hidden_field :assignment_id, value: @assignment.id%>
+						<br>
+						<div class="form-group">
+							<%=f.text_area :text, class:'form-control'%>
+						</div>
+						<%=f.hidden_field :present, value: false%>
+						<%=f.submit "Save Comment", class:'btn btn-primary'%>
+					<%end%>
+				</div>
+		    </div>
+		  </div>
+		  <%if !@presentation.new_record?%>
+		  <div class="panel panel-default">
+		    <div class="panel-heading" role="tab" id="headingTwo">
+		      <h4 class="panel-title">
+		        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+		          Presentation comment
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+		      <div class="panel-body">
+		        
+				
+				<%=form_for(@presentation_comment) do |f|%>
+					<%=f.hidden_field :user_id, value: current_user.id%>
+					<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+					<%=f.hidden_field :assignment_id, value: @assignment.id%>
+					<br>
+					<div class="form-group">
+						<%=f.text_area :text, class:'form-control'%>
+					</div>
+					<%=f.hidden_field :present, value: true%>
+					<%=f.submit "Save Comment", class:'btn btn-primary'%>
+				<%end%>
+		      </div>
+		    </div>
+		  </div>
+		  <%end%>
+		</div>
+
+
+
+	<%if @presentation.new_record?%>
+				<%=form_for(@presentation) do |f|%>
+				<%=f.hidden_field :assignment_author, value: params[:assignment_author]%>
+				<%=f.hidden_field :assignment_id, value: @assignment.id%>
+				<%=f.submit "Mark to Present", class:'btn btn-primary'%>
+				<%end%>
+			<%else%>
+				<%= link_to 'Unmark to Present', @presentation, method: :delete, class:'btn btn-primary'%>
+			<%end%>
+			
+
+
+			
+
+		<%else%>
+			<%if !@path_comment.new_record?%>
+				<h3>Professor's comments:</h3>
+				<p><%= @path_comment.text%></p>
+			<%end%>
+
+		<%end%>
+	</div>
+
+	<%if
+		# (current_user.id.to_s != params[:assignment_author] && @step.new_record?) || Date.today > @assignment.due_date
+		(current_user.id.to_s != params[:assignment_author] && @step.new_record?)
+		%>
+
+	<div class='col-md-8 text-center'>
+		<h3>Click a Step on Left to Review</h3>
+	</div>
+	<%else%>
+	<div class='col-md-8' id='form'>
+		<div id="error">
+        <% if flash[:errors] && !flash[:errors].empty? then -%>
+        	<%flash[:errors].each do |error|%>
+        		<%=error%>
+        		<%end%>
+        <% end -%>
+		</div>
+		<%=form_for(@step) do |f|%>
+		<%=f.hidden_field :user_id, value: params[:assignment_author]%>
+		<%=f.hidden_field :assignment_id, value: @assignment.id%>
+		
+		<div class='form-group'>
+			<label class='control-label' for='step_title'>Title</label>
+			<%=f.text_field :title, :class=>'form-control edit'%>
+			<input type='text' value='<%=@step.title%>' class='form-control view' readonly>
+			
+		</div>
+		<div class='row'>
+			<div class='col-md-6'>
+				<div class='form-group checkbox edit'>
+					<label class='control-label'>
+						<%= f.check_box :document %> <b>This is the document I was looking for</b>
+					</label>
+				</div>
+				<div class='form-group checkbox view'>
+					<label>
+						<input type='checkbox' disabled <%="checked" if @step.document%>><b>This is the document I was looking for</b>
+					</label>
+				</div>
+			</div>
+			<div class='col-md-6'>
+				<div class='form-group checkbox edit'>
+					<label>
+						<%= f.check_box :favorite %> <b>Add to favorites</b>
+					</label>
+				</div>
+				<div class='form-group checkbox view'>
+					<label>
+						<input type='checkbox' disabled <%="checked" if @step.favorite%>><b>Add to favorites</b>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label for='step_url'>URL</label>
+			<%=f.text_field :url, :class=>'form-control edit'%>
+			<input type='text' value='<%=@step.url%>' class='form-control view' readonly>
+		</div>
+		<div class='form-group'>
+			<label class='control-label' for='step_parent_id'>Page I came from</label>
+			<%=f.select :parent_id, nested_set_options(@steps, @step) {|i| "#{'-' * i.level} #{i.title}" }.unshift(["",nil]), {},{class:'form-control edit'} %>
+			<select class='form-control view' disabled>
+				<%if Step.exists?(:id => @step.parent_id)%>
+					<option><%=Step.find(@step.parent_id).title%></option>
+				<%else%>
+					<option></option>
+				<%end%>
+			</select>
+		</div>
+		<div class='row'>
+			<div class='col-md-6'>
+				<div class='form-group'>
+					<label class='control-label' for='step_screenshot'>Screenshot</label>
+						<% if @step.screenshot?%>
+						<a href='<%= @step.screenshot_url %>' data-toggle='lightbox'><%= image_tag(@step.screenshot_url, :class=>'thumbnail', :style=>'width:100%')%></a>
+						<%end%>
+						<span class='edit'><%=f.file_field :screenshot, :class=>'form-control'%></span>
+				</div>
+			</div>
+			<div class='col-md-6'>
+				<div class='form-group'>
+					<label class='control-label' for='step_justification'>Justification</label>
+					<%= f.text_area :justification, :rows=>10, :class=>'form-control edit' %>
+					<textarea class='form-control view' rows=10 readonly><%=@step.justification%></textarea>
+				</div>
+			</div>
+		</div>
+
+		<%if current_user.id.to_s == params[:assignment_author]%>
+			<div class='form-group text-center'>
+				<%=f.submit "Save", :class=>'edit btn btn-primary'%>
+				<a class='edit' href='#' id='cancel'>Cancel</a>
+			</div>
+		<%end%>
+
+		<%end%>
+	<%end%>
+	</div>
+	
+</div>
+		<script type="text/javascript">
+		function editStep(){
+			$(".view").hide();
+			$(".edit").show();
+		}
+		function viewStep(){
+			$(".edit").hide();
+			$(".view").show();
+		}
+		$(function(){
+			$(".successful").parents("li").addClass("successful").removeClass("unsuccessful");
+			$("#toggleSuccess").click(function(){
+				if($(this).html()=="Show Successful Path"){
+					$(this).html("Show All Steps");
+					$(".unsuccessful").hide();
+				}
+				else{
+					$(this).html("Show Successful Path");
+					$(".unsuccessful").show();
+				}
+			})
+			$("#cancel").click(viewStep);
+			$("#edit").click(function(event){
+				event.preventDefault();
+				editStep();
+			});	
+			$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+			    event.preventDefault();
+			    $(this).ekkoLightbox();
+			}); 
+		});
+		</script>
+		<style type='text/css'>
+		<%if !@step.new_record?%> 
+		.edit{
+			display:none;
+		}
+		<%else%>
+		.view, #cancel{
+			display:none;
+		}
+		<%end%>
+		</style>
+
+

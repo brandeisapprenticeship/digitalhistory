@@ -1,0 +1,153 @@
+li.successful a{
+	font-weight:bold;
+}
+
+li.unsuccessful a{
+	font-weight:normal;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 70px;
+  background-color: $navbar-inverse-bg;
+  border-top-style: solid;
+  border-top-width: 10px;
+}
+
+ .navbar{
+  border-bottom-style: solid;
+  border-bottom-width: 10px;
+}
+
+.assignments .footer {
+  border-top-color: $assignments-color;
+}
+
+.favorites .footer {
+  border-top-color: $favorites-color;
+}
+
+.presentations .footer {
+  border-top-color: $presentations-color;
+}
+
+.assignments .navbar {
+  border-bottom-color: $assignments-color;
+}
+
+.favorites .navbar {
+  border-bottom-color: $favorites-color;
+}
+
+.presentations .navbar {
+  border-bottom-color: $presentations-color;
+}
+
+.assignments a {
+  color: $assignments-color;
+}
+
+.favorites a {
+  color: $favorites-color;
+}
+
+.presentations a {
+  color: $presentations-color;
+}
+
+.footer p, .footer p a{
+  color: #FFF;
+}
+
+.footer p a{
+  text-decoration: underline;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.assignments .btn-primary {
+  @include button-variant($btn-primary-color, $assignments-color, darken($assignments-color, 5%));
+}
+
+.favorites .btn-primary {
+  @include button-variant($btn-primary-color, $favorites-color, darken($favorites-color, 5%));
+}
+
+.presentations .btn-primary {
+  @include button-variant($btn-primary-color, $presentations-color, darken($presentations-color, 5%));
+}
+
+.assignments .form-control {
+  @include form-control-focus($assignments-color);
+}
+
+.favorites .form-control {
+  @include form-control-focus($favorites-color);
+}
+
+.presentations .form-control {
+  @include form-control-focus($presentations-color);
+}
+
+li#assignments:hover{
+  background-color: darken($assignments-color, 20%);
+}
+
+li#favorites:hover{
+  background-color: darken($favorites-color, 20%);
+}
+
+li#presentations:hover{
+  background-color: darken($presentations-color, 20%);
+}
+
+li.current#assignments{
+  background-color: $assignments-color;
+}
+
+li.current#favorites{
+  background-color: $favorites-color;
+}
+
+li.current#presentations{
+  background-color: $presentations-color;
+}
+
+.assignments .bootstrap-datetimepicker-widget table td.active  {
+  background-color: $assignments-color;
+}
+
+.favorites .bootstrap-datetimepicker-widget table td.active  {
+  background-color: $favorites-color;
+}
+
+.presentations .bootstrap-datetimepicker-widget table td.active {
+  background-color: $presentations-color;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
